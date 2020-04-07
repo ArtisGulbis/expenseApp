@@ -1,0 +1,51 @@
+@keyframes fromLeft {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-10rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fromRight {
+  0% {
+    opacity: 0.5;
+    transform: translateX(10rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.entry-container {
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+
+  &.fromLeft {
+    animation: fromLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+  }
+
+  &.fromRight {
+    animation: fromRight;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+  }
+
+  &.green {
+    background-color: rgb(71, 238, 71);
+  }
+
+  &.red {
+    background-color: rgb(247, 111, 111);
+  }
+  p {
+    margin: 1rem 2rem;
+  }
+}

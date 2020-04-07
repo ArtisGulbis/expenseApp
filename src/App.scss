@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 1rem 10rem;
+}
+
+.input-field-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.error {
+  text-align: center;
+
+  font-size: 3rem;
+  color: rgb(238, 82, 82);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin: 4rem;
+}

@@ -1,0 +1,75 @@
+@keyframes fromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-5rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes toBottom {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(5rem);
+  }
+}
+
+.header-container {
+  height: 30rem;
+  margin-bottom: 5rem;
+  text-align: center;
+  display: grid;
+
+  .income {
+    color: rgb(14, 112, 14);
+  }
+
+  .expense {
+    color: rgb(235, 10, 10);
+  }
+
+  p {
+    font-size: 10rem;
+    display: inline-block;
+    margin: 0 auto;
+    margin-top: 10rem;
+  }
+
+  .before,
+  .after,
+  .middle {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .before,
+  .after {
+    display: none;
+  }
+
+  .fromTop {
+    display: inline-block;
+    animation: fromTop;
+    animation-duration: 0.75s;
+    animation-timing-function: ease-in-out;
+    z-index: 10;
+    color: rgba(107, 190, 107, 0.8);
+  }
+
+  .toBottom {
+    display: inline-block;
+    animation-name: toBottom;
+    animation-duration: 0.75s;
+    animation-timing-function: ease-in-out;
+    z-index: 10;
+    color: rgb(235, 10, 10);
+  }
+}
