@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.scss";
+import _ from "lodash";
 
 import { connect } from "react-redux";
 import {
@@ -46,8 +47,6 @@ class App extends React.Component {
   };
 
   replaceWhiteSpaces = (value) => {
-    //remove whitespace at beginning and end
-    //remove whitespace in between
     const trimmedValue = value.replace(/ /g, "");
     return trimmedValue;
   };
@@ -63,7 +62,7 @@ class App extends React.Component {
       return;
     }
 
-    const { newEntry, inc, dec } = this.props;
+    const { newEntry } = this.props;
 
     const value = this.replaceWhiteSpaces(this.state.value);
 
@@ -74,23 +73,29 @@ class App extends React.Component {
           name: this.state.name,
           value,
           type,
+          _id: _.uniqueId(),
         });
-        inc(value);
+        // inc(value);
       } else if (type === "expense") {
         this.setState({ fadeExpense: true, value, btnDisabled: true });
         newEntry({
           name: this.state.name,
           value,
           type,
+          _id: _.uniqueId(),
         });
-        dec(value);
+        // dec(value);
       }
     } else {
       this.setState({ error: "Invalid value" });
     }
   };
 
-  resetFieldsAndState = () => {
+  resetOnAnimationEnd = (income) => {
+    const { inc, dec } = this.props;
+
+    income ? inc(this.state.value) : dec(this.state.value);
+
     //clears input fields
     const fields = document.querySelectorAll("input");
     fields.forEach((el) => {
@@ -104,7 +109,7 @@ class App extends React.Component {
     const { res, clearEntry } = this.props;
     res();
     clearEntry();
-    this.resetFieldsAndState();
+    this.resetOnAnimationEnd();
   }
 
   render() {
@@ -116,7 +121,7 @@ class App extends React.Component {
           fadeIncome={this.state.fadeIncome}
           fadeExpense={this.state.fadeExpense}
           value={this.state.value}
-          onAnimationEnd={this.resetFieldsAndState}
+          onAnimationEnd={() => this.resetOnAnimationEnd(this.state.fadeIncome)}
         />
         <form>
           <div className="input-field-container">
@@ -146,6 +151,7 @@ class App extends React.Component {
                 this.handleTransaction("income", e);
               }}
               disabled={this.state.btnDisabled}
+              name="income"
             >
               Income
             </CustomInput>
@@ -154,6 +160,7 @@ class App extends React.Component {
               value="Expense"
               onClick={(e) => this.handleTransaction("expense", e)}
               disabled={this.state.btnDisabled}
+              name="expense"
             >
               Expense
             </CustomInput>

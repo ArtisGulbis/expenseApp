@@ -8,10 +8,10 @@ const INITIAL_STATE = {
 const entryReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case EntryTypes.SET_NEW_ENTRY:
-      const { name, value, type } = action.payload;
+      const { name, value, type, _id } = action.payload;
       return {
         ...state,
-        entries: [...state.entries, { name, value, type }],
+        entries: [...state.entries, { name, value, type, _id }],
       };
 
     case EntryTypes.CLEAR_ENTRIES:
@@ -20,6 +20,15 @@ const entryReducer = (state = INITIAL_STATE, action) => {
         entries: action.payload,
       };
 
+    case EntryTypes.REMOVE_ENTRY:
+      const entriesToKeep = state.entries.filter(
+        (el) => el._id !== action.payload.id
+      );
+
+      return {
+        ...state,
+        entries: entriesToKeep,
+      };
     default:
       return state;
   }

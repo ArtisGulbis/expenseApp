@@ -1,0 +1,4 @@
+export const HeaderAnimations = {
+  INCREASE_FROM_TOP: "INCREASE_FROM_TOP",
+  DECREASE_TO_BOTTOM: "DECREASE_TO_BOTTOM",
+};

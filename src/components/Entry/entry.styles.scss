@@ -1,7 +1,7 @@
 @keyframes fromLeft {
   0% {
-    opacity: 0.5;
-    transform: translateX(-10rem);
+    opacity: 0.3;
+    transform: translateX(-20rem);
   }
 
   100% {
@@ -11,8 +11,8 @@
 }
 @keyframes fromRight {
   0% {
-    opacity: 0.5;
-    transform: translateX(10rem);
+    opacity: 0.3;
+    transform: translateX(20rem);
   }
 
   100% {
@@ -21,21 +21,58 @@
   }
 }
 
+@keyframes fromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes out {
+  0% {
+    opacity: 1;
+    transform: translateY(-2rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+}
+
 .entry-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: auto;
+  transition: all 0.5s;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.75);
+  }
+
+  &:hover .remove-entry {
+    visibility: visible;
+    animation-name: fromTop;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
   &.fromLeft {
     animation: fromLeft;
     animation-duration: 1s;
-    animation-timing-function: ease;
+    animation-timing-function: cubic-bezier(0.7, 0.02, 0.4, 1.71);
   }
 
   &.fromRight {
     animation: fromRight;
     animation-duration: 1s;
-    animation-timing-function: ease;
+    animation-timing-function: cubic-bezier(0.7, 0.02, 0.4, 1.71);
   }
 
   &.green {
@@ -45,7 +82,17 @@
   &.red {
     background-color: rgb(247, 111, 111);
   }
+
   p {
     margin: 1rem 2rem;
+  }
+
+  .remove-entry {
+    visibility: hidden;
+    font-weight: 700;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

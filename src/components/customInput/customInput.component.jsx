@@ -1,7 +1,14 @@
 import React from "react";
 import "./customInput.styles.scss";
 
-const CustomInput = ({ type, value, onClick, children, ...otherProps }) => {
+const CustomInput = ({
+  type,
+  value,
+  onClick,
+  children,
+  name,
+  ...otherProps
+}) => {
   return (
     <div>
       <button
@@ -9,6 +16,7 @@ const CustomInput = ({ type, value, onClick, children, ...otherProps }) => {
         value={value}
         onClick={onClick}
         className="btn"
+        name={name}
         {...otherProps}
       >
         {children}

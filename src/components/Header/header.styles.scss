@@ -58,7 +58,7 @@
   .fromTop {
     display: inline-block;
     animation: fromTop;
-    animation-duration: 0.75s;
+    animation-duration: 1s;
     animation-timing-function: ease-in-out;
     z-index: 10;
     color: rgba(107, 190, 107, 0.8);
@@ -67,7 +67,7 @@
   .toBottom {
     display: inline-block;
     animation-name: toBottom;
-    animation-duration: 0.75s;
+    animation-duration: 1s;
     animation-timing-function: ease-in-out;
     z-index: 10;
     color: rgb(235, 10, 10);
