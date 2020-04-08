@@ -1,14 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
 import { UTILS } from "../../utils/utils";
+
 import { removeEntry } from "../../redux/entry/entry.actions";
 import {
   increaseAmount,
   decreaseAmount,
 } from "../../redux/total/total.actions";
+
+import {
+  decreaseAnimationTrue,
+  increaseAnimationTrue,
+} from "../../redux/headerAnimation/hAnimation.actions";
+
 import "./entry.styles.scss";
 
-const Entry = ({ entries, type, className, removeE, inc, dec }) => {
+const Entry = ({
+  entries,
+  type,
+  className,
+  removeE,
+  inc,
+  dec,
+  increaseAnim,
+  expenseAnim,
+}) => {
   return (
     <div>
       <div className={className}>
@@ -16,9 +32,9 @@ const Entry = ({ entries, type, className, removeE, inc, dec }) => {
           if (el.type === type) {
             return (
               <div key={idx}>
-                <div>
+                <div className="entry-container">
                   {type === "income" ? (
-                    <div className="entry-container green fromLeft">
+                    <div className="green fromLeft">
                       <p>{el.name}</p>
                       <span
                         className="remove-entry"
@@ -27,6 +43,7 @@ const Entry = ({ entries, type, className, removeE, inc, dec }) => {
                         onClick={(e) => {
                           removeE(e.target.dataset.id);
                           dec(e.target.dataset.value);
+                          expenseAnim();
                         }}
                       >
                         X
@@ -34,7 +51,7 @@ const Entry = ({ entries, type, className, removeE, inc, dec }) => {
                       <p>+ {UTILS.numbersWithCommas(el.value)}</p>
                     </div>
                   ) : (
-                    <div className="entry-container red fromRight">
+                    <div className="red fromRight">
                       <p>- {UTILS.numbersWithCommas(el.value)}</p>
                       <span
                         className="remove-entry"
@@ -43,6 +60,7 @@ const Entry = ({ entries, type, className, removeE, inc, dec }) => {
                         onClick={(e) => {
                           removeE(e.target.dataset.id);
                           inc(e.target.dataset.value);
+                          increaseAnim();
                         }}
                       >
                         X
@@ -66,6 +84,8 @@ const mapDispatchToProps = {
   removeE: removeEntry,
   inc: increaseAmount,
   dec: decreaseAmount,
+  increaseAnim: increaseAnimationTrue,
+  expenseAnim: decreaseAnimationTrue,
 };
 
 export default connect(null, mapDispatchToProps)(Entry);

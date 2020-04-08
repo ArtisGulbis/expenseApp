@@ -1,7 +1,7 @@
 @keyframes fromLeft {
   0% {
     opacity: 0.3;
-    transform: translateX(-20rem);
+    transform: translateY(20rem);
   }
 
   100% {
@@ -12,7 +12,7 @@
 @keyframes fromRight {
   0% {
     opacity: 0.3;
-    transform: translateX(20rem);
+    transform: translateY(20rem);
   }
 
   100% {
@@ -51,35 +51,41 @@
   transition: all 0.5s;
   position: relative;
 
-  &:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.75);
-  }
-
   &:hover .remove-entry {
     visibility: visible;
     animation-name: fromTop;
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 10;
   }
 
-  &.fromLeft {
+  .fromLeft {
     animation: fromLeft;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.7, 0.02, 0.4, 1.71);
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.75);
+    }
   }
 
-  &.fromRight {
+  .fromRight {
     animation: fromRight;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.7, 0.02, 0.4, 1.71);
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.75);
+    }
   }
 
-  &.green {
+  .green {
     background-color: rgb(71, 238, 71);
   }
 
-  &.red {
+  .red {
     background-color: rgb(247, 111, 111);
   }
 

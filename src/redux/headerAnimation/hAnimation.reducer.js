@@ -10,12 +10,12 @@ const hAnimation = (state = INITIAL_STATE, action) => {
     case HeaderAnimations.INCREASE_FROM_TOP:
       return {
         ...state,
-        fromTop: action.payload,
+        fromTop: !state.fromTop,
       };
     case HeaderAnimations.DECREASE_TO_BOTTOM:
       return {
         ...state,
-        fromTop: action.payload,
+        toBottom: !state.toBottom,
       };
     default:
       return state;

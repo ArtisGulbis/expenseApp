@@ -11,6 +11,11 @@ import {
 
 import { setNewEntry, clearEntries } from "././redux/entry/entry.actions";
 
+import {
+  decreaseAnimationTrue,
+  increaseAnimationTrue,
+} from "./redux/headerAnimation/hAnimation.actions";
+
 import CustomField from "./components/CustomField/customField.component";
 import CustomInput from "./components/customInput/customInput.component";
 import Header from "./components/Header/header.component";
@@ -21,8 +26,6 @@ class App extends React.Component {
     value: 0,
     name: "",
     error: "",
-    fadeIncome: false,
-    fadeExpense: false,
     btnDisabled: false,
   };
 
@@ -33,8 +36,6 @@ class App extends React.Component {
       name: "",
       type: "",
       error: "",
-      fadeIncome: false,
-      fadeExpense: false,
       btnDisabled: false,
     };
   }
@@ -62,39 +63,46 @@ class App extends React.Component {
       return;
     }
 
-    const { newEntry } = this.props;
+    const { newEntry, incomeAnimTrue, expenseAnimTrue } = this.props;
 
     const value = this.replaceWhiteSpaces(this.state.value);
 
     if (value.match(onlyNumber)) {
       if (type === "income") {
-        this.setState({ fadeIncome: true, value, btnDisabled: true });
+        this.setState({ value, btnDisabled: true });
+        incomeAnimTrue();
         newEntry({
           name: this.state.name,
           value,
           type,
           _id: _.uniqueId(),
         });
-        // inc(value);
       } else if (type === "expense") {
-        this.setState({ fadeExpense: true, value, btnDisabled: true });
+        this.setState({ value, btnDisabled: true });
+        expenseAnimTrue();
         newEntry({
           name: this.state.name,
           value,
           type,
           _id: _.uniqueId(),
         });
-        // dec(value);
       }
     } else {
       this.setState({ error: "Invalid value" });
     }
   };
 
-  resetOnAnimationEnd = (income) => {
-    const { inc, dec } = this.props;
+  resetOnAnimationEnd = (income, expense) => {
+    const { inc, dec, expenseAnimTrue, incomeAnimTrue } = this.props;
 
-    income ? inc(this.state.value) : dec(this.state.value);
+    // income ? inc(this.state.value) : dec(this.state.value);
+    if (income) {
+      inc(this.state.value);
+      incomeAnimTrue();
+    } else if (expense) {
+      dec(this.state.value);
+      expenseAnimTrue();
+    }
 
     //clears input fields
     const fields = document.querySelectorAll("input");
@@ -113,15 +121,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { res, clearEntry } = this.props;
+    const { res, clearEntry, fromTop, toBottom } = this.props;
 
     return (
       <div>
         <Header
-          fadeIncome={this.state.fadeIncome}
-          fadeExpense={this.state.fadeExpense}
           value={this.state.value}
-          onAnimationEnd={() => this.resetOnAnimationEnd(this.state.fadeIncome)}
+          onAnimationEnd={() => this.resetOnAnimationEnd(fromTop, toBottom)}
         />
         <form>
           <div className="input-field-container">
@@ -167,8 +173,14 @@ class App extends React.Component {
           </div>
         </form>
         <div className="btn-container">
-          <CustomInput onClick={res}>reset</CustomInput>
-          <CustomInput onClick={clearEntry}>clear entries</CustomInput>
+          <CustomInput
+            onClick={() => {
+              res();
+              clearEntry();
+            }}
+          >
+            Reset
+          </CustomInput>
         </div>
         <Table />
       </div>
@@ -176,8 +188,13 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ totalAmount: { total } }) => ({
+const mapStateToProps = ({
+  totalAmount: { total },
+  headerAnim: { fromTop, toBottom },
+}) => ({
   total,
+  fromTop,
+  toBottom,
 });
 
 const mapDispatchToProps = {
@@ -186,6 +203,8 @@ const mapDispatchToProps = {
   res: resetAmount,
   newEntry: setNewEntry,
   clearEntry: clearEntries,
+  incomeAnimTrue: increaseAnimationTrue,
+  expenseAnimTrue: decreaseAnimationTrue,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -4,15 +4,17 @@ import storage from "redux-persist/lib/storage";
 
 import totalReducer from "./total/total.reducer";
 import entryReducer from "./entry/entry.reducer";
+import headerReducer from "./headerAnimation/hAnimation.reducer";
 
 const persistConfig = {
   key: "root",
-  storage
+  storage,
 };
 
 const rootReducer = combineReducers({
   totalAmount: totalReducer,
-  entryFields: entryReducer
+  entryFields: entryReducer,
+  headerAnim: headerReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
