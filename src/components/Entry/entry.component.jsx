@@ -18,67 +18,67 @@ import "./entry.styles.scss";
 const Entry = ({
   entries,
   type,
-  className,
   removeE,
   inc,
   dec,
   increaseAnim,
   expenseAnim,
+  toBottom,
 }) => {
   return (
     <div>
-      <div className={className}>
-        {entries.map((el, idx) => {
-          if (el.type === type) {
-            return (
-              <div key={idx}>
-                <div className="entry-container">
-                  {type === "income" ? (
-                    <div className="green fromLeft">
-                      <p>{el.name}</p>
-                      <span
-                        className="remove-entry"
-                        data-id={el._id}
-                        data-value={el.value}
-                        onClick={(e) => {
-                          removeE(e.target.dataset.id);
-                          dec(e.target.dataset.value);
-                          expenseAnim();
-                        }}
-                      >
-                        X
-                      </span>
-                      <p>+ {UTILS.numbersWithCommas(el.value)}</p>
-                    </div>
-                  ) : (
-                    <div className="red fromRight">
-                      <p>- {UTILS.numbersWithCommas(el.value)}</p>
-                      <span
-                        className="remove-entry"
-                        data-id={el._id}
-                        data-value={el.value}
-                        onClick={(e) => {
-                          removeE(e.target.dataset.id);
-                          inc(e.target.dataset.value);
-                          increaseAnim();
-                        }}
-                      >
-                        X
-                      </span>
-                      <p>{el.name}</p>
-                    </div>
-                  )}
+      {entries.map((el, idx) => {
+        if (el.type === type) {
+          return (
+            <div key={idx}>
+              {type === "income" ? (
+                <div className="green entry-container income">
+                  <p>{el.name}</p>
+                  <span
+                    className="remove-entry"
+                    data-id={el._id}
+                    data-value={el.value}
+                    onClick={(e) => {
+                      removeE(e.target.dataset.id);
+                      dec(e.target.dataset.value);
+                      expenseAnim();
+                    }}
+                  >
+                    X
+                  </span>
+                  <p>+ {UTILS.numbersWithCommas(el.value)}</p>
                 </div>
-              </div>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </div>
+              ) : (
+                <div className="red entry-container expense">
+                  <p>- {UTILS.numbersWithCommas(el.value)}</p>
+                  <span
+                    className="remove-entry"
+                    data-id={el._id}
+                    data-value={el.value}
+                    onClick={(e) => {
+                      removeE(e.target.dataset.id);
+                      inc(e.target.dataset.value);
+                      increaseAnim();
+                    }}
+                  >
+                    X
+                  </span>
+                  <p>{el.name}</p>
+                </div>
+              )}
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
     </div>
   );
 };
+
+const mapStateToProps = ({ headerAnim: { toBottom } }) => ({
+  toBottom,
+});
 
 const mapDispatchToProps = {
   removeE: removeEntry,
@@ -88,4 +88,4 @@ const mapDispatchToProps = {
   expenseAnim: decreaseAnimationTrue,
 };
 
-export default connect(null, mapDispatchToProps)(Entry);
+export default connect(mapStateToProps, mapDispatchToProps)(Entry);

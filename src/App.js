@@ -121,15 +121,15 @@ class App extends React.Component {
   }
 
   render() {
-    const { res, clearEntry, fromTop, toBottom } = this.props;
+    const { res, clearEntry, fromTop, toBottom, total } = this.props;
 
     return (
-      <div>
+      <div className={"body " + (total >= 0 ? "positive" : "negative")}>
         <Header
           value={this.state.value}
           onAnimationEnd={() => this.resetOnAnimationEnd(fromTop, toBottom)}
         />
-        <form>
+        <form className="form">
           <div className="input-field-container">
             <CustomField
               type="text"
@@ -146,9 +146,9 @@ class App extends React.Component {
               required="required"
             />
           </div>
-          <div className="error">
-            {this.state.error ? <div>{this.state.error}</div> : null}
-          </div>
+          {this.state.error ? (
+            <div className="error">{this.state.error}</div>
+          ) : null}
           <div className="btn-container">
             <CustomInput
               type="submit"
@@ -172,16 +172,6 @@ class App extends React.Component {
             </CustomInput>
           </div>
         </form>
-        <div className="btn-container">
-          <CustomInput
-            onClick={() => {
-              res();
-              clearEntry();
-            }}
-          >
-            Reset
-          </CustomInput>
-        </div>
         <Table />
       </div>
     );

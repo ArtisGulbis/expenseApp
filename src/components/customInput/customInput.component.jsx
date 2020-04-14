@@ -10,17 +10,17 @@ const CustomInput = ({
   ...otherProps
 }) => {
   return (
-    <div>
-      <button
+    <div className="btn-filter">
+      <div
+        className={"btn " + (value === "Income" ? "inc" : "exp")}
         type={type}
         value={value}
         onClick={onClick}
-        className="btn"
         name={name}
         {...otherProps}
       >
         {children}
-      </button>
+      </div>
     </div>
   );
 };

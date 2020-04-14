@@ -1,3 +1,14 @@
+@import "./components/colors.scss";
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +27,18 @@ html {
 
 body {
   font-family: "Source Sans Pro", sans-serif;
-  margin: 1rem 10rem;
+}
+
+.body {
+  height: 100vh;
+  // background-image: linear-gradient(to bottom right, $col-1, $col-2);
+  &.negative {
+    background-image: linear-gradient(to bottom right, $col-4, $col-5);
+  }
+
+  &.positive {
+    background-image: linear-gradient(to bottom right, $col-1, $col-2);
+  }
 }
 
 .input-field-container {
@@ -26,15 +48,42 @@ body {
   text-align: center;
 }
 
-.error {
-  text-align: center;
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+  }
 
+  80% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.error {
+  width: fit-content;
+  margin: 0 auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  text-align: center;
+  font-weight: 700;
   font-size: 3rem;
-  color: rgb(238, 82, 82);
+  color: $col-4;
+
+  animation-name: popIn;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.71, -0.4, 0.4, 1.31);
 }
 
 .btn-container {
   display: flex;
   justify-content: center;
   margin: 4rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
 }

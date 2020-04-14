@@ -1,23 +1,21 @@
-@keyframes fromTop {
+@import "../colors.scss";
+
+@keyframes aaaaa {
   0% {
-    opacity: 0;
     transform: translateY(-5rem);
   }
 
   100% {
-    opacity: 1;
     transform: translate(0);
   }
 }
 
 @keyframes toBottom {
   0% {
-    opacity: 1;
     transform: translate(0);
   }
 
   100% {
-    opacity: 0;
     transform: translateY(5rem);
   }
 }
@@ -29,11 +27,11 @@
   display: grid;
 
   .income {
-    color: rgb(14, 112, 14);
+    color: $col-1;
   }
 
   .expense {
-    color: rgb(235, 10, 10);
+    color: $col-4;
   }
 
   p {
@@ -57,19 +55,19 @@
 
   .fromTop {
     display: inline-block;
-    animation: fromTop;
+    animation: aaaaa;
     animation-duration: 1s;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: cubic-bezier(0.74, -0.3, 0.25, 1.68);
     z-index: 10;
-    color: rgba(107, 190, 107, 0.8);
+    color: $col-3;
   }
 
   .toBottom {
     display: inline-block;
     animation-name: toBottom;
     animation-duration: 1s;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: cubic-bezier(0.33, 0.56, 0.56, 0.92);
     z-index: 10;
-    color: rgb(235, 10, 10);
+    color: $col-6;
   }
 }

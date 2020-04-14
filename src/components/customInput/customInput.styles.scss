@@ -1,9 +1,41 @@
-.btn {
-  width: auto;
-  padding: 1rem 1rem;
-  font-size: 2rem;
-  font-family: inherit;
-  margin: 0 2rem;
-  border: 1px solid black;
-  border-radius: 3px;
+@import "../colors.scss";
+
+.btn-filter {
+  .btn {
+    min-width: fit-content;
+    width: 25rem;
+    padding: 1rem 1rem;
+    font-size: 3rem;
+    letter-spacing: 0.2rem;
+    font-family: inherit;
+    margin: 0 2rem;
+    border-radius: 3px;
+    transition: all 0.1s linear;
+    text-align: center;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    &:hover {
+      transform: translateY(-0.3rem) scale(1.03);
+      cursor: pointer;
+    }
+
+    &.inc {
+      background-image: linear-gradient(to right, $col-1, $col-3);
+      color: $col-2;
+    }
+
+    &.exp {
+      background-image: linear-gradient(to right, $col-6, $col-4);
+      color: $col-2;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      outline: none;
+      transform: translateY(0.1rem) scale(1.01);
+      box-shadow: 0 0.15rem 1rem rgba(0, 0, 0, 0.8);
+    }
+  }
 }
