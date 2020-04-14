@@ -121,7 +121,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { res, clearEntry, fromTop, toBottom, total } = this.props;
+    const { fromTop, toBottom, total } = this.props;
 
     return (
       <div className={"body " + (total >= 0 ? "positive" : "negative")}>
